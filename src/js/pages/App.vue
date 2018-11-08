@@ -4,12 +4,12 @@
         <HelloWorld></HelloWorld>
         <h1>编译后的独立组件</h1>
         <button @click="handleLoadButtonClick()">异步加载编译后的组件</button>
-        <AsyncComRE :url="renderUrl" ></AsyncComRE>
+        <AsyncCom :url="renderUrl" ></AsyncCom>
     </div>
 </template>
 
 <script>
-    import AsyncComRE from 'lib/async-component/index';
+    import AsyncCom from 'lib/async-component/index';
     import HelloWorld from '@/HelloWorld/HelloWorld.vue'
     export default {
         data() {
@@ -18,14 +18,12 @@
             };
         },
         components: {
-            AsyncComRE,
+            AsyncCom,
             HelloWorld
         },
         methods: {
             handleLoadButtonClick() {
                 this.renderUrl = '/dist/HelloWorld/HelloWorld.min.js';
-                console.log(this.renderUrl)
-                console.log(AsyncComRE);
             }
         }
     }

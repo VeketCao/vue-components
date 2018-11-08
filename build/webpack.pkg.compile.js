@@ -18,7 +18,7 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
-let getWebpckConfig = (componentName,_entry)=>{
+let getWebpackConfig = (componentName,_entry)=>{
 
     let webpackConfig = {
         entry:_entry,
@@ -114,7 +114,7 @@ entryFiles.forEach((filePath) => {
     let entry = {};
     entry[filename] = `${filePath}/${filename}.vue`;
 
-    var compiler = webpack(getWebpckConfig(filename,entry));
+    var compiler = webpack(getWebpackConfig(filename,entry));
     console.log('start compiler componnet:'+filename);
     compiler.run(function(err, stats){
         console.log('end compiler componnet:'+filename);
