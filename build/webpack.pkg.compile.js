@@ -3,9 +3,7 @@
  * @author veket
  */
 'use strict'
-const ora = require('ora')
 const path = require('path')
-const chalk = require('chalk')
 const webpack = require('webpack')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const glob = require('glob');
@@ -67,6 +65,7 @@ let getWebpckConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
+                        publicPath: 'dist/',
                         name: componentName+'/[name].[ext]',
                     }
                 },
@@ -75,6 +74,7 @@ let getWebpckConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
+                        publicPath: 'dist/',
                         name: componentName+'/[name].[ext]'
                     }
                 },
@@ -83,6 +83,7 @@ let getWebpckConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
+                        publicPath: 'dist/',
                         name: componentName+'/[name].[ext]'
                     }
                 }
@@ -120,28 +121,3 @@ entryFiles.forEach((filePath) => {
     });
 });
 
-
-/*
-
-const spinner = ora('start building components...')
-spinner.start()
-
-webpack(webpackConfig, function (err, stats) {
-    spinner.stop()
-    if (err) throw err
-    process.stdout.write(stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-    }) + '\n\n')
-
-    if (stats.hasErrors()) {
-        console.log(chalk.red('  Build failed with errors.\n'))
-        process.exit(1)
-    }
-
-    console.log(chalk.cyan('  Build End.\n'))
-})
-*/
