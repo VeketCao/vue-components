@@ -7,8 +7,8 @@ const path = require('path')
 const webpack = require('webpack')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const glob = require('glob');
-const buildPath = path.resolve(process.cwd(),'dist');
-const pkgDir = path.resolve(process.cwd(),'pkg');
+const buildPath = path.resolve(process.cwd(),'dist/pkg');
+const pkgDir = path.resolve(process.cwd(),'src/pkg');
 const nodeModulesPath = path.resolve(process.cwd(),'node_modules');
 const utils = require('./utils');
 const entryFiles = glob.sync(`${pkgDir}/*`);
@@ -65,7 +65,7 @@ let getWebpackConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
-                        publicPath: 'dist/',
+                        publicPath: 'dist/pkg/',
                         name: componentName+'/[name].[ext]',
                     }
                 },
@@ -74,7 +74,7 @@ let getWebpackConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
-                        publicPath: 'dist/',
+                        publicPath: 'dist/pkg/',
                         name: componentName+'/[name].[ext]'
                     }
                 },
@@ -83,7 +83,7 @@ let getWebpackConfig = (componentName,_entry)=>{
                     loader: 'url-loader',
                     options: {
                         limit: 10000,
-                        publicPath: 'dist/',
+                        publicPath: 'dist/pkg/',
                         name: componentName+'/[name].[ext]'
                     }
                 }

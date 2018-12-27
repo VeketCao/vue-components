@@ -10,7 +10,7 @@
 
 <script>
     import AsyncCom from 'lib/async-component/index';
-    import HelloWorld from '@/HelloWorld/HelloWorld.vue'
+    import HelloWorld from 'pkg/HelloWorld/HelloWorld.vue'
     export default {
         data() {
             return {
@@ -23,7 +23,7 @@
         },
         methods: {
             handleLoadButtonClick() {
-                this.renderUrl = '/dist/HelloWorld/HelloWorld.min.js';
+                this.renderUrl = '/dist/pkg/HelloWorld/HelloWorld.min.js';
             }
         }
     }

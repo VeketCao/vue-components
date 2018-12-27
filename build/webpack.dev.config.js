@@ -10,7 +10,7 @@ const buildPath = path.resolve(process.cwd(),'dist');
 const nodeModulesPath = path.resolve(process.cwd(),'node_modules');
 const srcDir = path.resolve(process.cwd(),'src');
 const libDir = path.resolve(srcDir, 'js/lib');
-const pkgDir = path.resolve(process.cwd(),'pkg');
+const pkgDir = path.resolve(process.cwd(),'src/pkg');
 const glob = require('glob');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -58,8 +58,9 @@ module.exports = (() => {
                 fonts:`${srcDir}/fonts`,
                 apputil:`${srcDir}/js/util/main.js`,
                 lib:`${srcDir}/js/lib`,
-                "~":`${srcDir}`,
-                '@':`${pkgDir}`,
+                pkg:`${pkgDir}`,
+                "@":`${srcDir}`,
+
             }
         },
         entry:Object.assign(_entries, { vendor: ['vue'] }),
