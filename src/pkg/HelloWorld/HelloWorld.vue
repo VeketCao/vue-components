@@ -7,7 +7,13 @@
 
 <script>
     export default {
-        name: "HelloWorld"
+        name: "HelloWorld",
+        props: ['dataSource','http','attrs'],
+        mounted(){
+            this.http.get(this.dataSource.url).then(function (items) {
+                console.log(items);
+            })
+        }
     }
 </script>
 

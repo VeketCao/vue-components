@@ -3,7 +3,9 @@
  */
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index';
-import Axios from 'axios'
+import Axios from 'axios';
+
+Axios.defaults.withCredentials = false
 
 global.Vue = window.Vue = Vue;
 global.Axios = window.Axios =Axios;
