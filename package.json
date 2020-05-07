@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js --progress --colors --inline",
-    "pkg": "node build/webpack.pkg.compile.js",
+    "pkg": "node webpack.pkg.compile.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

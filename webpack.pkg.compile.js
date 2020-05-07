@@ -8,11 +8,55 @@ const webpack = require('webpack')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const glob = require('glob');
 const buildPath = path.resolve(process.cwd(),'dist/pkg');
-const pkgDir = path.resolve(process.cwd(),'src/pkg');
+const pkgDir = path.resolve(process.cwd(),'pkg');
 const nodeModulesPath = path.resolve(process.cwd(),'node_modules');
-const utils = require('./utils');
 const entryFiles = glob.sync(`${pkgDir}/*`);
 process.env.NODE_ENV = 'production';
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+
+let cssLoaders = function (options) {
+    options = options || {}
+  
+    const cssLoader = {
+      loader: 'css-loader',
+      options: {
+        minimize: process.env.NODE_ENV === 'production',
+        sourceMap: options.sourceMap
+      }
+    }
+  
+    function generateLoaders (loader, loaderOptions) {
+      const loaders = [cssLoader]
+      if (loader) {
+        loaders.push({
+          loader: loader + '-loader',
+          options: Object.assign({}, loaderOptions, {
+            sourceMap: options.sourceMap
+          })
+        })
+      }
+  
+      if (options.extract) {
+        return ExtractTextPlugin.extract({
+          use: loaders,
+          fallback: 'vue-style-loader'
+        })
+      } else {
+        return ['vue-style-loader'].concat(loaders)
+      }
+    }
+  
+    return {
+      css: generateLoaders(),
+      postcss: generateLoaders(),
+      less: generateLoaders('less'),
+      sass: generateLoaders('sass', { indentedSyntax: true }),
+      scss: generateLoaders('sass'),
+      stylus: generateLoaders('stylus'),
+      styl: generateLoaders('stylus')
+    }
+}
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -42,8 +86,8 @@ let getWebpackConfig = (componentName,_entry)=>{
                     test: /\.vue$/,
                     loader: 'vue-loader',
                     options: {
-                        esModule: false, // vue-loader v13 更新 默认值为 true v12及之前版本为 false, 此项配置影响 vue 自身异步组件写法以及 webpack 打包结果
-                        loaders: utils.cssLoaders({
+                        esModule: false,
+                        loaders: cssLoaders({
                             sourceMap: true,
                             extract: false          // css 不做提取
                         }),
@@ -107,7 +151,6 @@ let getWebpackConfig = (componentName,_entry)=>{
 
     return webpackConfig;
 }
-
 
 entryFiles.forEach((filePath) => {
     const filename = filePath.substring(filePath.lastIndexOf('/')+1,filePath.length);
